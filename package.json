@@ -1,0 +1,30 @@
+{
+  "name": "wapi",
+  "version": "1.0.0",
+  "main": "dist/app.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/baileys": "github:adiwajshing/baileys",
+    "dotenv": "^10.0.0",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "pino": "^6.7.0",
+    "pino-pretty": "^4.3.0",
+    "socket.io": "^4.3.1"
+  },
+  "devDependencies": {
+    "@types/ejs-locals": "0.0.32",
+    "@types/express": "^4.17.13",
+    "@types/pino": "^6.3.11",
+    "@types/pino-http": "^5.8.0"
+  },
+  "description": ""
+}
