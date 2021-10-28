@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import session from "express-session";
 import path from "path";
 import viewsEngine from "ejs-locals";
 import passport from "./passport";
-import authRoute from "../router/auth";
+import { apiRoutes as v1Routes } from "./routes";
+import { logger } from "@config";
 
 export default (app: express.Application): void => {
   app.use(cors());
@@ -19,18 +21,29 @@ export default (app: express.Application): void => {
   app.engine("ejs", viewsEngine);
   app.set("views", path.join(__dirname, "/../views"));
   app.set("view engine", "ejs");
+  app.use(express.static(path.join(__dirname, "/../../public")));
 
   // It shows the real origin IP in the heroku or Cloudwatch logs
-  // app.enable("trust proxy");
+  app.enable("trust proxy");
 
   // Set HTTP headers to protect from well known web vulnerabilities
-  // app.use(helmet());
+  app.use(helmet());
 
   // Cookie
   app.use(cookieParser());
 
+  // express session
+  app.use(
+    session({
+      secret: "keyboard cat",
+      resave: true,
+      saveUninitialized: true,
+    })
+  );
+
   // passport auth
   app.use(passport.initialize());
+  app.use(passport.session());
 
   // Middleware that transforms the raw string of req.body into json
   app.use(express.json());
@@ -48,5 +61,5 @@ export default (app: express.Application): void => {
     next();
   });
 
-  app.use("/auth", authRoute);
+  app.use("/v1", v1Routes);
 };

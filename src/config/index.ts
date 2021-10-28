@@ -72,6 +72,6 @@ export default {
       : process.env.GITHUB_CLIENT_SECRET_DEV,
   GITHUB_CALLBACK_URL:
     process.env.NODE_ENV === "production"
-      ? "https://colte.dev/api/auth/github/callback"
-      : "http://localhost:3000/auth/github/callback",
+      ? "https://colte.dev/api/v1/auth/github/callback"
+      : "http://localhost:3000/v1/auth/github/callback",
 };
